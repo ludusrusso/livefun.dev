@@ -1,11 +1,10 @@
 import { z } from "zod"
 
 export const CreateEvent = z.object({
-  title: z.string().min(2).max(40),
+  title: z.string().min(2).max(100),
   description: z.string().min(10).max(200),
-  scheduledAt: z.date(),
-  body: z.string().optional(),
+  scheduledAt: z.string().transform((s) => new Date(s)),
   repo: z.string().optional(),
-  guestIds: z.number().array(),
+  guestId: z.number(),
   hostId: z.number(),
 })

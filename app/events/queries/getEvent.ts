@@ -4,12 +4,23 @@ import { z } from "zod"
 
 const GetEvent = z.object({
   // This accepts type of undefined, but is required at runtime
-  id: z.number().optional().refine(Boolean, "Required"),
+  id: z.string().optional().refine(Boolean, "Required"),
 })
 
 export default resolver.pipe(resolver.zod(GetEvent), resolver.authorize(), async ({ id }) => {
   // TODO: in multi-tenant app, you must add validation to ensure correct tenant
-  const event = await db.event.findFirst({ where: { id } })
+  console.log({ id })
+  const event = await db.event.findFirst({
+    where: { id },
+    include: {
+      host: true,
+      guests: {
+        select: {
+          guest: true,
+        },
+      },
+    },
+  })
 
   if (!event) throw new NotFoundError()
 

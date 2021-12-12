@@ -23,7 +23,7 @@ export const EventsList = () => {
         {events.map((event) => (
           <li key={event.id}>
             <Link href={Routes.ShowEventPage({ eventId: event.id })}>
-              <a>{event.name}</a>
+              <a>{event.title}</a>
             </Link>
           </li>
         ))}

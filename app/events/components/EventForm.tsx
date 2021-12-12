@@ -12,12 +12,12 @@ import { Field, FormSpy, useField } from "react-final-form"
 import { slug } from "../utils"
 import DatePicker from "app/core/components/Datepicker"
 
-type GuestListData = Pick<Guest, "id" | "name" | "github">
+type UserListData = Pick<Guest, "id" | "name" | "github">
 
 export function EventForm<S extends z.ZodType<any, any>>({
   guests,
   ...props
-}: FormProps<S> & { guests: GuestListData[] }) {
+}: FormProps<S> & { guests: UserListData[] }) {
   return (
     <Form<S> {...props} className="max-w-2xl m-auto">
       <div className="space-y-8 divide-y divide-gray-200">
@@ -32,6 +32,12 @@ export function EventForm<S extends z.ZodType<any, any>>({
               type="text"
               label="Title"
               placeholder="Il miglior titolo"
+            />
+            <LabeledTextField
+              name="scheduledAt"
+              type="text"
+              label="Scheduled At"
+              placeholder="12/12/2021 20:00"
             />
             <FormSpy
               render={({ values }) => (
@@ -51,7 +57,8 @@ export function EventForm<S extends z.ZodType<any, any>>({
               label="Description"
               placeholder="Description"
             />
-            <SelectGuest guests={guests}></SelectGuest>
+            <SelectUserProps users={guests} name="hostId" label="Select host"></SelectUserProps>
+            <SelectUserProps users={guests} name="guestId" label="Select guest"></SelectUserProps>
             <DatePicker />
           </div>
         </div>
@@ -64,23 +71,29 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ")
 }
 
-export default function SelectGuest({ guests }: { guests: GuestListData[] }) {
+interface SelectUserProps {
+  users: UserListData[]
+  name: string
+  label: string
+}
+
+export default function SelectUserProps({ users, name, label }: SelectUserProps) {
   return (
     <Field
-      name="hostId"
+      name={name}
       render={({ input }) => {
-        const selected = guests.find((g) => g.id === input.value)
+        const selected = users.find((g) => g.id === input.value)
         return (
           <Listbox value={input.value} onChange={(value) => input.onChange(value?.id)}>
             {({ open }) => (
               <>
                 <Listbox.Label className="block text-sm font-medium text-gray-700">
-                  Hosted by to
+                  {label}
                 </Listbox.Label>
                 <div className="mt-1 relative">
                   <Listbox.Button className="bg-white relative w-full border border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                     {selected ? (
-                      <GuestSelectedItem guest={selected} />
+                      <SelectUserItem guest={selected} />
                     ) : (
                       <span className="block truncate"> select one </span>
                     )}
@@ -97,19 +110,19 @@ export default function SelectGuest({ guests }: { guests: GuestListData[] }) {
                     leaveTo="opacity-0"
                   >
                     <Listbox.Options className="absolute z-10 mt-1 w-full bg-white shadow-lg max-h-60 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
-                      {guests.map((guest) => (
+                      {users.map((user) => (
                         <Listbox.Option
-                          key={guest.id}
+                          key={user.id}
                           className={({ active }) =>
                             classNames(
                               active ? "text-white bg-indigo-600" : "text-gray-900",
                               "cursor-default select-none relative py-2 pl-3 pr-9"
                             )
                           }
-                          value={guest}
+                          value={user}
                         >
                           {({ selected, active }) => (
-                            <GuestSelectedItem guest={guest} selected={selected} active={active} />
+                            <SelectUserItem guest={user} selected={selected} active={active} />
                           )}
                         </Listbox.Option>
                       ))}
@@ -125,12 +138,12 @@ export default function SelectGuest({ guests }: { guests: GuestListData[] }) {
   )
 }
 
-const GuestSelectedItem = ({
-  guest,
+const SelectUserItem = ({
+  guest: user,
   active = false,
   selected = false,
 }: {
-  guest: GuestListData
+  guest: UserListData
   active?: boolean
   selected?: boolean
 }) => {
@@ -141,13 +154,13 @@ const GuestSelectedItem = ({
           width={30}
           height={30}
           className="rounded-full"
-          src={getGuestImage(guest, 30)}
-          alt={guest.name}
+          src={getGuestImage(user, 30)}
+          alt={user.name}
         />{" "}
         <span
           className={classNames(selected ? "font-semibold" : "font-normal", "block truncate ml-4")}
         >
-          {guest.name}
+          {user.name}
         </span>
       </div>
       {selected ? (

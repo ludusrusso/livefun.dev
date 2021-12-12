@@ -5,17 +5,16 @@ import { CreateEvent } from "../validations"
 export default resolver.pipe(
   resolver.zod(CreateEvent),
   resolver.authorize(),
-  async ({ guestIds, hostId, ...input }) => {
+  async ({ guestId, hostId, ...input }) => {
+    console.log(input)
     const event = await db.event.create({
       data: {
         ...input,
         slug: "asd",
         hostId: hostId,
         guests: {
-          createMany: {
-            data: guestIds.map((id) => ({
-              guestId: id,
-            })),
+          create: {
+            guestId: guestId,
           },
         },
       },
