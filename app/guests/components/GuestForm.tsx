@@ -8,11 +8,11 @@ export { FORM_ERROR } from "app/core/components/Form"
 export function GuestForm<S extends z.ZodType<any, any>>(props: FormProps<S>) {
   return (
     <Form<S> {...props} className="max-w-2xl m-auto">
-      <div className="space-y-8 divide-y divide-gray-200">
+      <div className="space-y-8 divide-y divide-stone-200">
         <div className="pt-8">
           <div>
-            <h3 className="text-lg leading-6 font-medium text-gray-900">Aggiungi Guest</h3>
-            <p className="mt-1 text-sm text-gray-500">Informazioni sul guest degli eventi</p>
+            <h3 className="text-lg leading-6 font-medium text-stone-900">Aggiungi Guest</h3>
+            <p className="mt-1 text-sm text-stone-500">Informazioni sul guest degli eventi</p>
           </div>
           <div className="mt-6 flex flex-col gap-4">
             <LabeledTextField name="name" type="text" label="Name" placeholder="Name" />

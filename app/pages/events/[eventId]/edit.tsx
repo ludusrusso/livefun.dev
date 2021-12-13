@@ -4,10 +4,11 @@ import Layout from "app/core/layouts/Layout"
 import getEvent from "app/events/queries/getEvent"
 import updateEvent from "app/events/mutations/updateEvent"
 import { EventForm, FORM_ERROR } from "app/events/components/EventForm"
+import getGuestsForList from "app/guests/queries/getGuestsForList"
 
 export const EditEvent = () => {
   const router = useRouter()
-  const eventId = useParam("eventId", "number")
+  const eventId = useParam("eventId", "string")
   const [event, { setQueryData }] = useQuery(
     getEvent,
     { id: eventId },
@@ -17,6 +18,7 @@ export const EditEvent = () => {
     }
   )
   const [updateEventMutation] = useMutation(updateEvent)
+  const [{ guests }] = useQuery(getGuestsForList, {})
 
   return (
     <>
@@ -26,9 +28,9 @@ export const EditEvent = () => {
 
       <div>
         <h1>Edit Event {event.id}</h1>
-        <pre>{JSON.stringify(event, null, 2)}</pre>
 
         <EventForm
+          guests={guests}
           submitText="Update Event"
           // TODO use a zod schema for form validation
           //  - Tip: extract mutation's schema into a shared `validations.ts` file and

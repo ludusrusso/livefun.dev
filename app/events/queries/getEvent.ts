@@ -3,7 +3,6 @@ import db from "db"
 import { z } from "zod"
 
 const GetEvent = z.object({
-  // This accepts type of undefined, but is required at runtime
   id: z.string().optional().refine(Boolean, "Required"),
 })
 

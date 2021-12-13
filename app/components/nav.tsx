@@ -33,7 +33,7 @@ export function Nav() {
         This example requires updating your template:
 
         ```
-        <html class="h-full bg-gray-100">
+        <html class="h-full bg-stone-100">
         <body class="h-full">
         ```
       */}
@@ -104,8 +104,8 @@ export function Nav() {
                                 <a
                                   href={item.href}
                                   className={classNames(
-                                    active ? "bg-gray-100" : "",
-                                    "block px-4 py-2 text-sm text-gray-700"
+                                    active ? "bg-stone-100" : "",
+                                    "block px-4 py-2 text-sm text-stone-700"
                                   )}
                                 >
                                   {item.name}

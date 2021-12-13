@@ -31,11 +31,11 @@ export const LabeledTextField = forwardRef<HTMLInputElement, LabeledTextFieldPro
 
     return (
       <div {...outerProps}>
-        <label className="block text-sm font-medium text-gray-700" {...labelProps}>
+        <label className="block text-sm font-medium text-stone-700" {...labelProps}>
           {label}
         </label>
         <input
-          className="px-2 py-3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+          className="px-2 py-3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-stone-300 rounded-md"
           {...input}
           disabled={submitting}
           {...props}

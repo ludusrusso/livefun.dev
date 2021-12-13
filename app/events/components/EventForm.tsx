@@ -10,7 +10,6 @@ import { getGuestImage } from "app/guests/utils"
 import { Image } from "blitz"
 import { Field, FormSpy, useField } from "react-final-form"
 import { slug } from "../utils"
-import DatePicker from "app/core/components/Datepicker"
 
 type UserListData = Pick<Guest, "id" | "name" | "github">
 
@@ -20,11 +19,11 @@ export function EventForm<S extends z.ZodType<any, any>>({
 }: FormProps<S> & { guests: UserListData[] }) {
   return (
     <Form<S> {...props} className="max-w-2xl m-auto">
-      <div className="space-y-8 divide-y divide-gray-200">
+      <div className="space-y-8 divide-y divide-stone-200">
         <div className="pt-8">
           <div>
-            <h3 className="text-lg leading-6 font-medium text-gray-900">Aggiungi Evento</h3>
-            <p className="mt-1 text-sm text-gray-500">Inserisci le info dell&apos;evento</p>
+            <h3 className="text-lg leading-6 font-medium text-stone-900">Aggiungi Evento</h3>
+            <p className="mt-1 text-sm text-stone-500">Inserisci le info dell&apos;evento</p>
           </div>
           <div className="mt-6 flex flex-col gap-4">
             <LabeledTextField
@@ -59,7 +58,6 @@ export function EventForm<S extends z.ZodType<any, any>>({
             />
             <SelectUserProps users={guests} name="hostId" label="Select host"></SelectUserProps>
             <SelectUserProps users={guests} name="guestId" label="Select guest"></SelectUserProps>
-            <DatePicker />
           </div>
         </div>
       </div>
@@ -87,18 +85,18 @@ export default function SelectUserProps({ users, name, label }: SelectUserProps)
           <Listbox value={input.value} onChange={(value) => input.onChange(value?.id)}>
             {({ open }) => (
               <>
-                <Listbox.Label className="block text-sm font-medium text-gray-700">
+                <Listbox.Label className="block text-sm font-medium text-stone-700">
                   {label}
                 </Listbox.Label>
                 <div className="mt-1 relative">
-                  <Listbox.Button className="bg-white relative w-full border border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                  <Listbox.Button className="bg-white relative w-full border border-stone-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                     {selected ? (
                       <SelectUserItem guest={selected} />
                     ) : (
                       <span className="block truncate"> select one </span>
                     )}
                     <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
-                      <SelectorIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+                      <SelectorIcon className="h-5 w-5 text-stone-400" aria-hidden="true" />
                     </span>
                   </Listbox.Button>
 
@@ -115,7 +113,7 @@ export default function SelectUserProps({ users, name, label }: SelectUserProps)
                           key={user.id}
                           className={({ active }) =>
                             classNames(
-                              active ? "text-white bg-indigo-600" : "text-gray-900",
+                              active ? "text-white bg-indigo-600" : "text-stone-900",
                               "cursor-default select-none relative py-2 pl-3 pr-9"
                             )
                           }

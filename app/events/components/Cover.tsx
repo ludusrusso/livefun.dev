@@ -1,3 +1,4 @@
+import styled from "@emotion/styled"
 import { Event, Guest } from "@prisma/client"
 import { getGuestImage } from "app/guests/utils"
 import { Image } from "blitz"
@@ -10,9 +11,10 @@ interface EventCoverProps {
 
 export const EventCover = ({ event, host, guest }: EventCoverProps) => {
   return (
-    <div className="aspect-video w-[1024px] bg-zinc-100 grid grid-rows-[1fr_auto]">
+    <div className="aspect-video relative w-[1024px] bg-zinc-100 grid grid-rows-[1fr_auto]">
+      <CoverStyled />
       <div className="relative">
-        <div className="w-1/2 h-full  grid place-content-center">
+        <div className="w-1/2 h-full grid place-content-center z-20">
           <h2 className="text-blue-800 text-5xl leading-tight font-bold pl-10 ">
             <div
               dangerouslySetInnerHTML={{
@@ -39,7 +41,7 @@ export const EventCover = ({ event, host, guest }: EventCoverProps) => {
           </div>
         )}
       </div>
-      <div className="bg-blue-800 h-12 px-4 text-green-300 flex justify-between items-center">
+      <div className="relative bg-blue-800 h-12 px-4 text-green-300 flex justify-between items-center">
         <p className="text-xl">{date2EventCoverTime(event.scheduledAt)}</p>
         <p className="text-2xl font-bold">Livefun.dev</p>
       </div>
@@ -47,17 +49,31 @@ export const EventCover = ({ event, host, guest }: EventCoverProps) => {
   )
 }
 
+const CoverStyled = styled.div`
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 200px;
+  right: 0;
+  background: linear-gradient(270deg, rgb(244 244 245) 0%, rgba(218, 218, 218, 0) 44.3%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%2373D06F' fill-opacity='0.4'%3E%3Cpath d='M0 38.59l2.83-2.83 1.41 1.41L1.41 40H0v-1.41zM0 1.4l2.83 2.83 1.41-1.41L1.41 0H0v1.41zM38.59 40l-2.83-2.83 1.41-1.41L40 38.59V40h-1.41zM40 1.41l-2.83 2.83-1.41-1.41L38.59 0H40v1.41zM20 18.6l2.83-2.83 1.41 1.41L21.41 20l2.83 2.83-1.41 1.41L20 21.41l-2.83 2.83-1.41-1.41L18.59 20l-2.83-2.83 1.41-1.41L20 18.59z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  transform: matrix(-1, 0, 0, 1, 0, 0);
+`
+
 const SmallUser = ({ guest }: { guest: Guest }) => {
   return (
     <div className="flex flex-col items-center">
       <div className="w-[200px] aspect-square overflow-hidden rounded-full border-[6px] border-solid border-green-500">
-        <Image
-          className="object-cover"
-          width={200}
-          height={200}
-          src={getGuestImage(guest)}
-          alt={guest.name}
-        />
+        {
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            className="object-cover"
+            width={200}
+            height={200}
+            src={getGuestImage(guest)}
+            alt={guest.name}
+          />
+        }
       </div>
       <p className="text-blue-800 mt-2 text-center text-2xl w-[180px] font-black">{guest.name}</p>
     </div>
@@ -68,13 +84,16 @@ const BigUser = ({ guest }: { guest: Guest }) => {
   return (
     <div className="flex flex-col items-center ">
       <div className="rounded-full w-[300px] aspect-square overflow-hidden block border-[6px] border-solid border-green-500">
-        <Image
-          className="object-cover"
-          width={300}
-          height={300}
-          src={getGuestImage(guest)}
-          alt={guest.name}
-        />
+        {
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            className="object-cover"
+            width={300}
+            height={300}
+            src={getGuestImage(guest)}
+            alt={guest.name}
+          />
+        }
       </div>
 
       <p className="text-blue-800 mt-2 text-2xl text-center w-[270px] font-black"> {guest.name} </p>

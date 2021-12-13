@@ -57,27 +57,27 @@ export default function DatePicker() {
                       <a
                         key={item.name}
                         href={item.href}
-                        className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
+                        className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-stone-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
                       >
                         <div className="flex items-center justify-center flex-shrink-0 w-10 h-10 text-white sm:h-12 sm:w-12">
                           <item.icon aria-hidden="true" />
                         </div>
                         <div className="ml-4">
-                          <p className="text-sm font-medium text-gray-900">{item.name}</p>
-                          <p className="text-sm text-gray-500">{item.description}</p>
+                          <p className="text-sm font-medium text-stone-900">{item.name}</p>
+                          <p className="text-sm text-stone-500">{item.description}</p>
                         </div>
                       </a>
                     ))}
                   </div>
-                  <div className="p-4 bg-gray-50">
+                  <div className="p-4 bg-stone-50">
                     <a
                       href="##"
-                      className="flow-root px-2 py-2 transition duration-150 ease-in-out rounded-md hover:bg-gray-100 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
+                      className="flow-root px-2 py-2 transition duration-150 ease-in-out rounded-md hover:bg-stone-100 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
                     >
                       <span className="flex items-center">
-                        <span className="text-sm font-medium text-gray-900">Documentation</span>
+                        <span className="text-sm font-medium text-stone-900">Documentation</span>
                       </span>
-                      <span className="block text-sm text-gray-500">
+                      <span className="block text-sm text-stone-500">
                         Start integrating products and tools
                       </span>
                     </a>

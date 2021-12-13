@@ -22,6 +22,7 @@ export function slug(string: string) {
   slug = slug.trim()
   slug = slug.replace(/\s+/g, replacement)
   slug = slug.toLowerCase()
+  slug = slug.replace(/\*/g, "")
 
   return slug
 }

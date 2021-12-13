@@ -71,7 +71,7 @@ export const DebugForm = ({ values }: { values: any }) => {
       {open && (
         <div className="h-screen bg-white shadow">
           <button
-            className="w-md bg-gray-700 text-white w-8 h-8 absolute top-0 right-0"
+            className="w-md bg-stone-700 text-white w-8 h-8 absolute top-0 right-0"
             onClick={toggle}
           >
             x
