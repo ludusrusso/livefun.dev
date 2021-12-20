@@ -1,15 +1,15 @@
-import { Form, FormProps } from "app/core/components/Form"
-import { LabeledTextField } from "app/core/components/LabeledTextField"
-import { z } from "zod"
-export { FORM_ERROR } from "app/core/components/Form"
-import { Fragment, useState } from "react"
 import { Listbox, Transition } from "@headlessui/react"
 import { CheckIcon, SelectorIcon } from "@heroicons/react/solid"
 import { Guest } from "@prisma/client"
+import { Form, FormProps } from "app/core/components/Form"
+import { LabeledTextField } from "app/core/components/LabeledTextField"
 import { getGuestImage } from "app/guests/utils"
 import { Image } from "blitz"
-import { Field, FormSpy, useField } from "react-final-form"
+import { Fragment } from "react"
+import { Field, FormSpy } from "react-final-form"
+import { z } from "zod"
 import { slug } from "../utils"
+export { FORM_ERROR } from "app/core/components/Form"
 
 type UserListData = Pick<Guest, "id" | "name" | "github">
 
@@ -57,7 +57,16 @@ export function EventForm<S extends z.ZodType<any, any>>({
               placeholder="Description"
             />
             <SelectUserProps users={guests} name="hostId" label="Select host"></SelectUserProps>
-            <SelectUserProps users={guests} name="guestId" label="Select guest"></SelectUserProps>
+            <SelectUserProps
+              users={guests}
+              name="guestId1"
+              label="Select first guest"
+            ></SelectUserProps>
+            <SelectUserProps
+              users={guests}
+              name="guestId2"
+              label="Select second guest"
+            ></SelectUserProps>
           </div>
         </div>
       </div>

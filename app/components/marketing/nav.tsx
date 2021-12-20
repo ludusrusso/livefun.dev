@@ -1,19 +1,26 @@
 import { Disclosure, Menu, Transition } from "@headlessui/react"
 import { XIcon, MenuIcon, BellIcon } from "@heroicons/react/outline"
+import { useCurrentUser } from "app/core/hooks/useCurrentUser"
+import { Link } from "blitz"
 import { Fragment } from "react"
-
-const navigation = [
-  { name: "Dashboard", href: "#", current: true },
-  { name: "Team", href: "#", current: false },
-  { name: "Projects", href: "#", current: false },
-  { name: "Calendar", href: "#", current: false },
-]
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ")
 }
 
 export const MarketingNav = () => {
+  const user = useCurrentUser()
+
+  let navigation = [{ name: "Dashboard", href: "#", current: true }]
+
+  if (user) {
+    navigation = [
+      ...navigation,
+      { name: "Events", href: "/events", current: false },
+      { name: "Guests", href: "/guests", current: false },
+    ]
+  }
+
   return (
     <Disclosure as="nav" className="bg-stone-800">
       {({ open }) => (
@@ -61,20 +68,20 @@ export const MarketingNav = () => {
           <Disclosure.Panel className="sm:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1">
               {navigation.map((item) => (
-                <Disclosure.Button
-                  key={item.name}
-                  as="a"
-                  href={item.href}
-                  className={classNames(
-                    item.current
-                      ? "bg-stone-900 text-white"
-                      : "text-stone-300 hover:bg-stone-700 hover:text-white",
-                    "block px-3 py-2 rounded-md text-base font-medium"
-                  )}
-                  aria-current={item.current ? "page" : undefined}
-                >
-                  {item.name}
-                </Disclosure.Button>
+                <Link key={item.name} href={item.href}>
+                  <Disclosure.Button
+                    as="a"
+                    className={classNames(
+                      item.current
+                        ? "bg-stone-900 text-white"
+                        : "text-stone-300 hover:bg-stone-700 hover:text-white",
+                      "block px-3 py-2 rounded-md text-base font-medium"
+                    )}
+                    aria-current={item.current ? "page" : undefined}
+                  >
+                    {item.name}
+                  </Disclosure.Button>
+                </Link>
               ))}
             </div>
           </Disclosure.Panel>

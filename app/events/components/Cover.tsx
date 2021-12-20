@@ -6,10 +6,10 @@ import { Image } from "blitz"
 interface EventCoverProps {
   event: Event
   host: Guest
-  guest?: Guest
+  guests: Guest[]
 }
 
-export const EventCover = ({ event, host, guest }: EventCoverProps) => {
+export const EventCover = ({ event, host, guests }: EventCoverProps) => {
   return (
     <div className="aspect-video relative w-[1024px] bg-zinc-100 grid grid-rows-[1fr_auto]">
       <CoverStyled />
@@ -26,13 +26,25 @@ export const EventCover = ({ event, host, guest }: EventCoverProps) => {
             ></div>
           </h2>
         </div>
-        {guest ? (
+        {guests.length === 1 ? (
           <>
             <div className="absolute right-10 bottom-20">
               <SmallUser guest={host} />
             </div>
             <div className="absolute right-52 bottom-28">
-              <BigUser guest={guest} />
+              <BigUser guest={guests[0]!} />
+            </div>
+          </>
+        ) : guests.length === 2 ? (
+          <>
+            <div className="absolute right-[10px] bottom-[10px]">
+              <SmallUser guest={host} />
+            </div>
+            <div className="absolute right-[170px] top-[150px]">
+              <SmallUser guest={guests[0]!} />
+            </div>
+            <div className="absolute right-[330px] top-[50px]">
+              <SmallUser guest={guests[1]!} />
             </div>
           </>
         ) : (

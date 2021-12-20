@@ -20,7 +20,11 @@ export const Event = () => {
         <h1>Event {event.id}</h1>
         <div className="m-auto p-10 grid place-content-center">
           <div ref={coverRef} className="bg-red-500">
-            <EventCover event={event} host={event.host} guest={event.guests[0]?.guest!} />
+            <EventCover
+              event={event}
+              host={event.host}
+              guests={event.guests.map((g) => g.guest)!}
+            />
           </div>
         </div>
 

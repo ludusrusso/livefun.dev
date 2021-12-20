@@ -1,19 +1,24 @@
 import { MarketingFooter } from "app/components/marketing/footer"
 import { MarketingNav } from "app/components/marketing/nav"
+import { useCurrentUser } from "app/core/hooks/useCurrentUser"
 import Layout from "app/core/layouts/Layout"
 import { twitchCli } from "app/core/twitch"
 import { EventCover } from "app/events/components/Cover"
 import { BlitzPage, InferGetServerSidePropsType, NotFoundError } from "blitz"
 import db from "db"
+import { Suspense } from "react"
 
 const Home: BlitzPage<InferGetServerSidePropsType<typeof getServerSideProps>> = ({
   isLive,
   viewers,
   nextEvent,
 }) => {
+  const user = useCurrentUser()
+
   return (
     <div className="grid min-h-screen grid-rows-[auto_1fr_auto]">
       <MarketingNav />
+      {JSON.stringify(user)}
       <div className="m-auto">
         <pre>
           {nextEvent?.title} {viewers}
@@ -29,7 +34,7 @@ const Home: BlitzPage<InferGetServerSidePropsType<typeof getServerSideProps>> = 
           <div className="scale-50">
             <EventCover
               event={nextEvent!}
-              guest={nextEvent?.guests[0]!.guest}
+              guests={nextEvent?.guests!.map((g) => g.guest)!}
               host={nextEvent?.host!}
             />
           </div>
@@ -41,7 +46,11 @@ const Home: BlitzPage<InferGetServerSidePropsType<typeof getServerSideProps>> = 
 }
 
 Home.suppressFirstRenderFlicker = true
-Home.getLayout = (page) => <Layout title="Home">{page}</Layout>
+Home.getLayout = (page) => (
+  <Suspense fallback="loading">
+    <Layout title="Home">{page}</Layout>
+  </Suspense>
+)
 
 export default Home
 
