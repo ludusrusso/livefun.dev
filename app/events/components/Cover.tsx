@@ -131,7 +131,7 @@ const mounths = [
 const days = ["Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato", "Domenica"]
 
 const date2EventCoverTime = (date: Date) => {
-  return `${days[date.getDay()]} ${date.getDate()} ${
+  return `${days[date.getDay() - 1]} ${date.getDate()} ${
     mounths[date.getMonth()]
   } ${date.getFullYear()} - ${padTime(date.getHours())}.${padTime(date.getMinutes())}`
 }

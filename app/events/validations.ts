@@ -8,6 +8,6 @@ export const CreateEvent = z.object({
   }),
   repo: z.string().optional(),
   guestId1: z.number(),
-  guestId2: z.number(),
+  guestId2: z.number().optional(),
   hostId: z.number(),
 })
